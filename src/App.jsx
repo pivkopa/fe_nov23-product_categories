@@ -33,11 +33,7 @@ const Products = ({ products }) => (
   ))
 );
 
-const Users = ({
-  setProducts,
-  setFilteredByUsers,
-  filteredByUsers,
-}) => (
+const Users = ({ setProducts }) => (
   usersFromServer.map(user => (
     <a
       key={user.id}
@@ -46,8 +42,7 @@ const Users = ({
       onClick={() => {
         const filteredProducts = FilterByUsers(preparedProducts(), user);
 
-        setFilteredByUsers(filteredProducts);
-        setProducts(filteredByUsers);
+        setProducts(filteredProducts);
       }}
     >
       {user.name}
@@ -81,7 +76,6 @@ const FilterByUsers = (products, user) => (
 
 export const App = () => {
   const [products, setProducts] = useState(preparedProducts());
-  const [filteredByUsers, setFilteredByUsers] = useState(products);
 
   return (
     <div className="section">
@@ -96,6 +90,7 @@ export const App = () => {
               <a
                 data-cy="FilterAllUsers"
                 href="#/"
+                onClick={() => setProducts(preparedProducts())}
               >
                 All
               </a>
@@ -103,8 +98,6 @@ export const App = () => {
               <Users
                 setProducts={setProducts}
                 products={products}
-                filteredByUsers={filteredByUsers}
-                setFilteredByUsers={setFilteredByUsers}
               />
             </p>
 
